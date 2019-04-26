@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class ActionButtons {
-	Button addButton = new Button("Добавить");
+	Button addButton = new Button("Добавить запись");
 	Button searchByLNameAndGNumButton = new Button("Поиск по фам. или № гр.");
 	Button searchByLNameAndWorkButton = new Button("Поиск по фам. и кол-ву общ раб.");
 	Button searchByGNumAndWorkButton = new Button("Поиск по № гр. и кол-ву общ. раб.");

@@ -1,9 +1,13 @@
 package application;
 
+import java.io.File;
+
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class NavigationBar {
 	MenuItem newFile = new MenuItem("Новый");
@@ -28,6 +32,8 @@ public class NavigationBar {
 	MenuBar menuBar = new MenuBar(menuFiles, menuAdd, menuSrch, menuDel);
 	Pane menuBarPane = new Pane(menuBar);
 	
+    private Stage stage;
+    
 	public NavigationBar() {
 		menuFiles.getItems().add(newFile);
 		menuFiles.getItems().add(openFile);
@@ -39,6 +45,25 @@ public class NavigationBar {
 		menuDel.getItems().add(del1);
 		menuDel.getItems().add(del2);
 		menuDel.getItems().add(del3);
+		
+		openFile.setOnAction((e) -> {
+		    FileChooser fileChooser = new FileChooserBuilder().getFileChooser();
+		    File selectedFile = fileChooser.showOpenDialog(stage);
+		    if (selectedFile != null) {
+		
+		    }
+		});
+		
+		saveFile.setOnAction((e) -> {
+		    FileChooser fileChooser = new FileChooserBuilder().getFileChooser();
+		    File selectedFile = fileChooser.showSaveDialog(stage);
+		    if (selectedFile != null) {		
+		    }
+		});
+		
+		newFile.setOnAction((e) -> {		   
+		});
+		
 	}
 	public Pane getMenuPanel() {
 		return menuBarPane;
