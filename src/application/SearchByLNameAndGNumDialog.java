@@ -14,7 +14,6 @@ public class SearchByLNameAndGNumDialog {
 	private Stage stage = new Stage();
 	
 Table table= new Table();
-TableControl tableControl = new TableControl();
 Label lastNameLabel = new Label("Фамилия: ");
 Label groupNumLabel = new Label("Номер группы: ");
 TextField lastNameInsert = new TextField ();
@@ -23,7 +22,7 @@ Button search = new Button("Поиск");
 Button cancel = new Button("Отмена");
 VBox controlBox = new VBox(10, lastNameLabel,lastNameInsert, groupNumLabel, groupNumInsert, search, cancel);
 Pane tablePane = table.getTable();
-VBox tableControlPane = tableControl.getTableControlPane(); 
+VBox tableControlPane = table.getTableControlPane(); 
 AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane, tableControlPane);
 private Scene scene = new Scene(SearchByLNameAndGNumPane, 1400, 700);
 

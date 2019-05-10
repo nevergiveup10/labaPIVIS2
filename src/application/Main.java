@@ -47,8 +47,8 @@ public class Main extends Application {
 			AnchorPane.setRightAnchor(tablePane, 15.0);
 			AnchorPane.setBottomAnchor(tablePane, 30.0);
 
-			TableControl tableControl = new TableControl();
-			VBox tableControlPane = tableControl.getTableControlPane();
+			
+			VBox tableControlPane = table.getTableControlPane();
 
 			AnchorPane.setTopAnchor(tableControlPane, 450.0);
 			AnchorPane.setRightAnchor(tableControlPane, 800.0);

@@ -13,7 +13,6 @@ public class SearchByLNameAndWorkDialog {
 	private Stage stage = new Stage();
 	
 Table table= new Table();
-TableControl tableControl = new TableControl();
 Label lastNameLabel = new Label("Фамилия: ");
 Label workLowLimitLabel = new Label("Кол-во работы (нижний предел): ");
 Label workHighLimitLabel = new Label("Кол-во работы (верхний предел): ");
@@ -24,7 +23,7 @@ Button search = new Button("Поиск");
 Button cancel = new Button("Отмена");
 VBox controlBox = new VBox(10, lastNameLabel,lastNameInsert, workLowLimitLabel, worLowLimitInsert, workHighLimitLabel, workHighLimitInsert, search, cancel);
 Pane tablePane = table.getTable();
-VBox tableControlPane = tableControl.getTableControlPane(); 
+VBox tableControlPane = table.getTableControlPane(); 
 AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane, tableControlPane);
 private Scene scene = new Scene(SearchByLNameAndGNumPane, 1400, 700);
 
