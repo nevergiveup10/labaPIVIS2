@@ -3,16 +3,16 @@ package application;
 
 
 public class SemesterWork {
-	int[] semWork;
-	public SemesterWork() {
-		semWork = new int[10];
+	private	String[] semWork;
+	public SemesterWork(String[] semWork) {
+		this.semWork = semWork;
 	}
 
-	public int[] getSemWork() {
+	public String[] getSemWork() {
 		return semWork;
 	}
 	
-	public void setSemWork(int num, int work) {
+	public void setSemWork(int num, String work) {
 		this.semWork [num] = work;
 	}
 }

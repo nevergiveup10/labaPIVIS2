@@ -1,5 +1,9 @@
 package application;
 
+
+
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +28,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			Model model = new Model();
+			Controller controller = new Controller(model);
 			AddDialog addDialog = new AddDialog();
 			SearchByLNameAndGNumDialog searchByLNameAndGNumDialog = new SearchByLNameAndGNumDialog();
 			SearchByLNameAndWorkDialog searchByLNameAndWorkDialog = new SearchByLNameAndWorkDialog();
@@ -31,8 +37,8 @@ public class Main extends Application {
 			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog = new DeleteByLNameAndGNumDialog();
 			DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog = new DeleteByLNameAndWorkDialog();
 			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog();
-			Table table = new Table();
-
+			Table table = new Table(model.getStudents());
+						
 			Pane tablePane = table.getTable();
 
 			ActionButtons actionButtons = new ActionButtons(addDialog, searchByLNameAndGNumDialog,
@@ -54,8 +60,10 @@ public class Main extends Application {
 			AnchorPane.setRightAnchor(tableControlPane, 800.0);
 			AnchorPane.setBottomAnchor(tableControlPane, 20.0);
 
-			NavigationBar menuPanel = new NavigationBar();
+			NavigationBar menuPanel = new NavigationBar(controller, table);
 			Pane menuBarPane = menuPanel.getMenuPanel();
+			
+//			Table table = Table(model.getStudents());
 
 			AnchorPane root = new AnchorPane(menuBarPane, actionButtonsPane, tablePane, tableControlPane);
 			Scene scene = new Scene(root, 1400, 700);
