@@ -57,7 +57,7 @@ public class Main extends Application {
 			VBox tableControlPane = table.getTableControlPane();
 
 			AnchorPane.setTopAnchor(tableControlPane, 450.0);
-			AnchorPane.setRightAnchor(tableControlPane, 800.0);
+			AnchorPane.setRightAnchor(tableControlPane, 680.0);
 			AnchorPane.setBottomAnchor(tableControlPane, 20.0);
 
 			NavigationBar menuPanel = new NavigationBar(controller, table);

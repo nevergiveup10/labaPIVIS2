@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,9 +17,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class Table {
-	
+	 private int currentPage;
+	    private int recordsOnPage; 
 	private List<Student> students;
 	TableView<Student> table = new TableView();
+	TablePageManager tablePageManager;
 	TableColumn<Student, String> firstName = new TableColumn<>("Имя");
 	TableColumn<Student, String> lastName = new TableColumn<>("Фамилия");
 	TableColumn<Student, String> patronymic = new TableColumn<>("Отчество");
@@ -39,6 +43,7 @@ public class Table {
 	Button previousPageButton = new Button("<");
 	Button nextPageButton = new Button(">");
 	Button lastPageButton = new Button("Последняя стр.");
+	Button recordsNumButton = new Button("Применить");
 
 	HBox tableControlButtons = new HBox(10, firstPageButton, previousPageButton, nextPageButton,
 			lastPageButton);
@@ -47,7 +52,7 @@ public class Table {
 	Label allPagesLabel = new Label("Всего страниц: ");
 	Label currentPageLabel = new Label("Текущая страница: ");
 	Label recordsNumLabel = new Label("Записей на странице: ");
-
+	
 	Label allRecordsValue = new Label("0");
 	Label allPagesValue = new Label("0");
 	Label currentPageValue = new Label("0");
@@ -56,7 +61,7 @@ public class Table {
 	HBox allRecordsBox = new HBox(5, allRecordsLabel, allRecordsValue);
 	HBox allPagesBox = new HBox(5, allPagesLabel, allPagesValue);
 	HBox currentPageBox = new HBox(5, currentPageLabel, currentPageValue);
-	HBox recordsNumBox = new HBox(5, recordsNumLabel, recordsNumValue);
+	HBox recordsNumBox = new HBox(5, recordsNumLabel, recordsNumValue, recordsNumButton);
 
 	VBox tableControlPane = new VBox(10, tableControlButtons, allRecordsBox, allPagesBox, currentPageBox,
 			recordsNumBox);
@@ -64,6 +69,7 @@ public class Table {
 		this(new ArrayList<>());
 	    }
 	public Table(List<Student> students){
+
 		societyWork.getColumns().addAll(sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8, sem9, sem10);
 		table.getColumns().add(lastName);
 		table.getColumns().add(firstName);
@@ -87,17 +93,76 @@ public class Table {
 	    sem10.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getHoursInSem(10)));
 	    table.setItems(FXCollections.observableArrayList(students));
 	}
+	 private void tableControl (List<Student> students)   {
+		TablePageManager tablePageManager = new TablePageManager(students);
+	    table.setItems(tablePageManager.getPage(0));
+		
+	    recordsNumValue.setText(Integer.toString(tablePageManager.getPage(1).size()));		
+		currentPageValue.setText("1");
+		allPagesValue.setText(Integer.toString(tablePageManager.getPages().size()));
+		
+		recordsNumValue.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                	recordsNumValue.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+		
+		firstPageButton.setOnAction(event -> {
+	            table.setItems(tablePageManager.getPage(0));
+	            currentPage = 0;
+	            currentPageValue.setText(Integer.toString(currentPage + 1));
+
+	        });
+		
+		previousPageButton.setOnAction(event -> {
+            if (currentPage == 0) {
+            } else {
+                table.setItems(tablePageManager.getPage(currentPage - 1));
+                currentPage = currentPage - 1;
+                currentPageValue.setText(Integer.toString(currentPage + 1));
+            }
+        });
+
+		nextPageButton.setOnAction(event -> {
+            if (currentPage == tablePageManager.getPages().size() - 1) {
+
+            } else {
+                table.setItems(tablePageManager.getPage(currentPage + 1));
+                currentPage = currentPage + 1;
+                currentPageValue.setText(Integer.toString(currentPage + 1));
+            }
+        });
+
+		lastPageButton.setOnAction(event -> {
+            table.setItems(tablePageManager.getPage(tablePageManager.getPages().size() - 1));
+            currentPage = tablePageManager.getPages().size() - 1;
+            currentPageValue.setText(Integer.toString(tablePageManager.getPages().size()));
+        });
+		
+		recordsNumButton.setOnAction(event -> {
+			recordsOnPage = Integer.parseInt(recordsNumValue.getText());
+			tablePageManager.update(students, recordsOnPage);
+			currentPage = 0;
+			table.setItems(tablePageManager.getPage(0));
+            currentPageValue.setText(Integer.toString(currentPage + 1));	
+            recordsNumValue.setText(Integer.toString(tablePageManager.getPage(1).size()));		
+    		allPagesValue.setText(Integer.toString(tablePageManager.getPages().size()));
+        });
+		 
+		 
+	}
 	public Pane getTable() {
 		return paneForTable;
 			}
 	
 	public void updateStudentsList(List<Student> students) {
 		this.students = students;
-	    table.setItems(FXCollections.observableArrayList(students));
-
-	//	this.students.addAll(students);
-	//	navigation.updateStatement();
-	//	navigation.setLastPage();
+		tableControl(students);
+		allRecordsValue.setText(Integer.toString(students.size()));
 	    }
 
 	public VBox getTableControlPane() {
