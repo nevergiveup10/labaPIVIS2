@@ -14,8 +14,12 @@ public class Model {
     public Model(List<Student> students) {
 	this.students = students;
     }
-    
+   
     public List<Student> getStudents() {
     return students;
         }
+    
+    public void rewriteStudentsList(List<Student> students) {
+    	this.students = students;
+            }
 }

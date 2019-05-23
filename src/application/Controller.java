@@ -14,12 +14,25 @@ public class Controller {
 	    }
 	    
 	    public List<Student> open(File file) {    	
-	    	return new FileReader().read(file);
+	    	return new FileHandler().read(file);
 	        }
+	    
+	    public void write (File file,List<Student> students) {    	
+	    	new FileHandler().write(file, students);
+	        }
+	    
 	    public void eraseStudentsList() {
 	    	model.getStudents().clear();
 	        }
 	    public void updateStudentsList(List<Student> students) {
 	    	model.getStudents().addAll(students);
+	        }
+	    
+	    public void rewriteStudentsList(List<Student> students) {
+	    	model.rewriteStudentsList(students);
+	        }
+	    
+	    public List<Student> getStudentsList() {
+	    	return model.getStudents();
 	        }
 }

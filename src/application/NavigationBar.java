@@ -4,6 +4,8 @@ package application;
 import java.io.File;
 import java.util.List;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -13,12 +15,12 @@ import javafx.stage.Stage;
 
 public class NavigationBar {
 	private Controller controller;
-	private MenuItem newFile = new MenuItem("Новый");
-	private MenuItem openFile = new MenuItem("Открыть");
-	private MenuItem saveFile = new MenuItem("Сохранить");
+	private MenuItem newFile = new MenuItem("Новый файл");
+	private MenuItem openFile = new MenuItem("Открыть файл");
+	private MenuItem saveFile = new MenuItem("Сохранить файл");
 	private	Menu menuFiles = new Menu("Файл");
 
-	private MenuItem update = new MenuItem("Обновить");
+	private MenuItem addRecord = new MenuItem("Добавить запись");
 	private Menu menuAdd = new Menu("Добавить");
 	
 	private MenuItem lastNameSrch = new MenuItem("По фамилии");
@@ -37,11 +39,13 @@ public class NavigationBar {
 	
     private Stage stage;
     
-	public NavigationBar(Controller controller, Table table) {
+	public NavigationBar(Controller controller, Table table, AddDialog addDialog, SearchByLNameAndGNumDialog searchByLNameAndGNumDialog,
+			SearchByLNameAndWorkDialog searchByLNameAndWorkDialog, SearchByGNumAndWorkDialog searchByGNumAndWorkDialog,
+			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog, DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog, DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog) {
 		menuFiles.getItems().add(newFile);
 		menuFiles.getItems().add(openFile);
 		menuFiles.getItems().add(saveFile);
-		menuAdd.getItems().add(update);
+		menuAdd.getItems().add(addRecord);
 		menuSrch.getItems().add(lastNameSrch);
 		menuSrch.getItems().add(groumNmSrch);
 		menuSrch.getItems().add(societyWorkSrch);
@@ -64,11 +68,24 @@ public class NavigationBar {
 		saveFile.setOnAction((e) -> {
 		    FileChooser fileChooser = new FileChooserBuilder().getFileChooser();
 		    File selectedFile = fileChooser.showSaveDialog(stage);
-		    if (selectedFile != null) {		
+		    if (selectedFile != null) {	
+		    	List<Student> students = controller.getStudentsList();
+		    	controller.write(selectedFile, students);
 		    }
 		});
 		
-		newFile.setOnAction((e) -> {		   
+		newFile.setOnAction((e) -> {	
+			List<Student> students = controller.getStudentsList();
+			controller.eraseStudentsList();
+			//table.updateStudentsList(students);
+			table.resetTable();
+		});
+		
+		addRecord.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				addDialog.show();
+			}
 		});
 		
 	}

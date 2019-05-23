@@ -12,13 +12,13 @@ public class TablePageManager {
     private int recordsOnPage;  
     private List<Student> students;
     
-    public TablePageManager(List<Student> students) {        
+   /* public TablePageManager(List<Student> students) {        
           for (int i = 0; i < students.size(); i += 10) {
                 pages.add(students.subList(i, Math.min(students.size(), i + 10)));
             }     
         this.students = students;
         this.currentPage = 0;
-    }
+    } */
     
     public ObservableList<Student> getPage(int index) {
         ObservableList<Student> page = FXCollections.observableArrayList(pages.get(index));
@@ -33,7 +33,13 @@ public class TablePageManager {
     	  for (int i = 0; i < students.size(); i += recordsOnPage) {
               pages.add(students.subList(i, Math.min(students.size(), i + recordsOnPage)));
           }     
+    }
+   public void update(List<Student> students) {
+      		pages.clear();
+      	  for (int i = 0; i < students.size(); i += 10) {
+                pages.add(students.subList(i, Math.min(students.size(), i + 10)));
+            }     
       this.students = students;
-      this.currentPage = 0;
+  //    this.currentPage = 0;
     }
 }

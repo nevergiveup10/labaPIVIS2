@@ -20,8 +20,8 @@ public class Table {
 	 private int currentPage;
 	    private int recordsOnPage; 
 	private List<Student> students;
+	TablePageManager tablePageManager = new TablePageManager();
 	TableView<Student> table = new TableView();
-	TablePageManager tablePageManager;
 	TableColumn<Student, String> firstName = new TableColumn<>("Имя");
 	TableColumn<Student, String> lastName = new TableColumn<>("Фамилия");
 	TableColumn<Student, String> patronymic = new TableColumn<>("Отчество");
@@ -94,10 +94,12 @@ public class Table {
 	    table.setItems(FXCollections.observableArrayList(students));
 	}
 	 private void tableControl (List<Student> students)   {
-		TablePageManager tablePageManager = new TablePageManager(students);
+	//	TablePageManager tablePageManager = new TablePageManager(students);
+		 
+		tablePageManager.update(students);
 	    table.setItems(tablePageManager.getPage(0));
 		
-	    recordsNumValue.setText(Integer.toString(tablePageManager.getPage(1).size()));		
+	    recordsNumValue.setText(Integer.toString(tablePageManager.getPage(currentPage).size()));		
 		currentPageValue.setText("1");
 		allPagesValue.setText(Integer.toString(tablePageManager.getPages().size()));
 		
@@ -155,6 +157,13 @@ public class Table {
 		 
 		 
 	}
+	 public void resetTable() {
+		 table.getItems().clear();
+		 allRecordsValue.setText("0");
+		allPagesValue.setText("0");
+		currentPageValue.setText("0");
+		recordsNumValue.setText("0");
+	 }
 	public Pane getTable() {
 		return paneForTable;
 			}

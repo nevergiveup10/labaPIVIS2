@@ -29,16 +29,16 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Model model = new Model();
-			Controller controller = new Controller(model);
-			AddDialog addDialog = new AddDialog();
-			SearchByLNameAndGNumDialog searchByLNameAndGNumDialog = new SearchByLNameAndGNumDialog();
+			Controller controller = new Controller(model);			
+			Table table = new Table(model.getStudents());
+			
+			AddDialog addDialog = new AddDialog(controller, table);
+			SearchByLNameAndGNumDialog searchByLNameAndGNumDialog = new SearchByLNameAndGNumDialog(controller);
 			SearchByLNameAndWorkDialog searchByLNameAndWorkDialog = new SearchByLNameAndWorkDialog();
 			SearchByGNumAndWorkDialog searchByGNumAndWorkDialog = new SearchByGNumAndWorkDialog();
 			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog = new DeleteByLNameAndGNumDialog();
 			DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog = new DeleteByLNameAndWorkDialog();
-			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog();
-			Table table = new Table(model.getStudents());
-						
+			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog();			
 			Pane tablePane = table.getTable();
 
 			ActionButtons actionButtons = new ActionButtons(addDialog, searchByLNameAndGNumDialog,
@@ -60,7 +60,8 @@ public class Main extends Application {
 			AnchorPane.setRightAnchor(tableControlPane, 680.0);
 			AnchorPane.setBottomAnchor(tableControlPane, 20.0);
 
-			NavigationBar menuPanel = new NavigationBar(controller, table);
+			NavigationBar menuPanel = new NavigationBar(controller, table, addDialog, searchByLNameAndGNumDialog,
+					searchByLNameAndWorkDialog, searchByGNumAndWorkDialog, deleteByLNameAndGNumDialog, deleteByLNameAndWorkDialog, deleteByGNumAndWorkDialog);
 			Pane menuBarPane = menuPanel.getMenuPanel();
 			
 //			Table table = Table(model.getStudents());

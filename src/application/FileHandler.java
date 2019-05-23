@@ -10,13 +10,13 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-public class FileReader {
+public class FileHandler {
 
     private SAXParserFactory factory;
 
     private SAXParser parser;
 
-    public FileReader() {
+    public FileHandler() {
 	factory = SAXParserFactory.newInstance();
 	try {
 	    parser = factory.newSAXParser();
@@ -40,4 +40,9 @@ public class FileReader {
 	}
 	return students;
     }
+    
+    public void write (File file, List<Student> students) {
+    	 XMLHandler handler = new XMLHandler();
+    	handler.saveXML(file, students);
+        }
 }
