@@ -26,7 +26,8 @@ public class SearchByLNameAndGNumDialog {
 	TextField groupNumInsert = new TextField();
 	Button search = new Button("Поиск");
 	Button cancel = new Button("Отмена");
-	VBox controlBox = new VBox(10, lastNameLabel, lastNameInsert, groupNumLabel, groupNumInsert, search, cancel);
+	Button erase = new Button("Очистить");
+	VBox controlBox = new VBox(10, lastNameLabel, lastNameInsert, groupNumLabel, groupNumInsert, search, cancel, erase);
 	Pane tablePane = table.getTable();
 	VBox tableControlPane = table.getTableControlPane();
 	AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane, tableControlPane);
@@ -53,7 +54,8 @@ public class SearchByLNameAndGNumDialog {
 		search.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				if (lastNameInsert.getText().isEmpty()&& groupNumInsert.getText().isEmpty()) {
+
+				if (lastNameInsert.getText().isEmpty() && groupNumInsert.getText().isEmpty()) {
 				}
 
 				if (!lastNameInsert.getText().isEmpty() && !groupNumInsert.getText().isEmpty()) {
@@ -61,13 +63,12 @@ public class SearchByLNameAndGNumDialog {
 						if (groupNumInsert.getText().equals(students.get(i).getGroupNumber())
 								|| lastNameInsert.getText().equals(students.get(i).getLastName())) {
 							searchResults.add(students.get(i));
-							 System.out.println("1");
+							System.out.println("1");
 						}
 					}
 				}
 
 				if (lastNameInsert.getText().isEmpty()) {
-
 					for (int i = 0; i < students.size(); i++) {
 						if (groupNumInsert.getText().equals(students.get(i).getGroupNumber())) {
 							searchResults.add(students.get(i));
@@ -76,6 +77,7 @@ public class SearchByLNameAndGNumDialog {
 					}
 				}
 				if (groupNumInsert.getText().isEmpty()) {
+
 					for (int i = 0; i < students.size(); i++) {
 						if (lastNameInsert.getText().equals(students.get(i).getLastName())) {
 							searchResults.add(students.get(i));
@@ -84,11 +86,28 @@ public class SearchByLNameAndGNumDialog {
 					}
 				}
 				table.updateStudentsList(searchResults);
+
 			}
-			
+
 		});
 
-	
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				stage.close();
+			}
+
+		});
+
+		erase.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				searchResults.clear();
+				table.resetTable();
+			}
+
+		});
+
 	}
 
 	public void show() {

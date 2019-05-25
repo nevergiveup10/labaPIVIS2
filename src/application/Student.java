@@ -9,10 +9,8 @@ public class Student {
 	private List<String> semesterWork;
 
 	private String groupNumber;
-	
 
-	public Student(String firstName, String lastName, String patronymic, String groupNum,
-			List<String> semesterWork) {
+	public Student(String firstName, String lastName, String patronymic, String groupNum, List<String> semesterWork) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.patronymic = patronymic;
@@ -60,7 +58,7 @@ public class Student {
 	public void setGroupNumber(String groupNumber) {
 		this.groupNumber = groupNumber;
 	}
-	
+
 	public String getHoursInSem(int sem) {
 		return semesterWork.get(sem - 1);
 	}

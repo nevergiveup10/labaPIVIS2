@@ -95,52 +95,49 @@ public class XMLHandler extends DefaultHandler {
 	}
 
 	public void saveXML(File file, List<Student> students) {
-		this.students = students;		
+		this.students = students;
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.newDocument();
 
-
 			Element rootElement = doc.createElement("listStudent");
 			doc.appendChild(rootElement);
 			for (int i = 0; i < students.size(); i++) {
-		
-			Element student = doc.createElement("student");
-			rootElement.appendChild(student);
-			
-			Element lastName = doc.createElement("last_name");
-			lastName.appendChild(doc.createTextNode(students.get(i).getLastName()));
-			student.appendChild(lastName);
-			
-			Element firtstName = doc.createElement("first_name");
-			firtstName.appendChild(doc.createTextNode(students.get(i).getFirstName()));
-			student.appendChild(firtstName);
-			
-			Element patronymic = doc.createElement("patronymic");
-			patronymic.appendChild(doc.createTextNode(students.get(i).getPatronymic()));
-			student.appendChild(patronymic);
-			
-			Element groupNumber = doc.createElement("group_number");
-			groupNumber.appendChild(doc.createTextNode(students.get(i).getGroupNumber()));
-			student.appendChild(groupNumber);
-			
-			Element socialWorks = doc.createElement("social_works");
-			student.appendChild(socialWorks);
-			
-			for (int j = 1; j <= 10; j++) {
-			Element semWork = doc.createElement("sem_work");
-			Attr attrType = doc.createAttribute("num");
-	         attrType.setValue(Integer.toString(j));
-	         semWork.setAttributeNode(attrType);
-	         semWork.appendChild(doc.createTextNode(students.get(i).getSemesterWork().get(j-1)));
-	         socialWorks.appendChild(semWork);
-			}
-			
+
+				Element student = doc.createElement("student");
+				rootElement.appendChild(student);
+
+				Element lastName = doc.createElement("last_name");
+				lastName.appendChild(doc.createTextNode(students.get(i).getLastName()));
+				student.appendChild(lastName);
+
+				Element firtstName = doc.createElement("first_name");
+				firtstName.appendChild(doc.createTextNode(students.get(i).getFirstName()));
+				student.appendChild(firtstName);
+
+				Element patronymic = doc.createElement("patronymic");
+				patronymic.appendChild(doc.createTextNode(students.get(i).getPatronymic()));
+				student.appendChild(patronymic);
+
+				Element groupNumber = doc.createElement("group_number");
+				groupNumber.appendChild(doc.createTextNode(students.get(i).getGroupNumber()));
+				student.appendChild(groupNumber);
+
+				Element socialWorks = doc.createElement("social_works");
+				student.appendChild(socialWorks);
+
+				for (int j = 1; j <= 10; j++) {
+					Element semWork = doc.createElement("sem_work");
+					Attr attrType = doc.createAttribute("num");
+					attrType.setValue(Integer.toString(j));
+					semWork.setAttributeNode(attrType);
+					semWork.appendChild(doc.createTextNode(students.get(i).getSemesterWork().get(j - 1)));
+					socialWorks.appendChild(semWork);
+				}
 
 			}
 
-	
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
@@ -149,15 +146,12 @@ public class XMLHandler extends DefaultHandler {
 
 			transformer.transform(source, result);
 
-			
 			StreamResult consoleResult = new StreamResult(System.out);
 			transformer.transform(source, consoleResult);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-	}
-	}
 
+	}
+}

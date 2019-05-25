@@ -19,7 +19,9 @@ public class ActionButtons {
 
 	public ActionButtons(AddDialog addDialog, SearchByLNameAndGNumDialog searchByLNameAndGNumDialog,
 			SearchByLNameAndWorkDialog searchByLNameAndWorkDialog, SearchByGNumAndWorkDialog searchByGNumAndWorkDialog,
-			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog, DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog, DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog) {
+			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog,
+			DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog,
+			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog) {
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

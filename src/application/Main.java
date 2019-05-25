@@ -1,7 +1,5 @@
 package application;
 
-
-
 import java.util.List;
 
 import javafx.application.Application;
@@ -29,20 +27,21 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Model model = new Model();
-			Controller controller = new Controller(model);			
+			Controller controller = new Controller(model);
 			Table table = new Table(model.getStudents());
-			
+
 			AddDialog addDialog = new AddDialog(controller, table);
 			SearchByLNameAndGNumDialog searchByLNameAndGNumDialog = new SearchByLNameAndGNumDialog(controller);
-			SearchByLNameAndWorkDialog searchByLNameAndWorkDialog = new SearchByLNameAndWorkDialog();
-			SearchByGNumAndWorkDialog searchByGNumAndWorkDialog = new SearchByGNumAndWorkDialog();
-			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog = new DeleteByLNameAndGNumDialog();
-			DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog = new DeleteByLNameAndWorkDialog();
-			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog();			
+			SearchByLNameAndWorkDialog searchByLNameAndWorkDialog = new SearchByLNameAndWorkDialog(controller);
+			SearchByGNumAndWorkDialog searchByGNumAndWorkDialog = new SearchByGNumAndWorkDialog(controller);
+			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog = new DeleteByLNameAndGNumDialog(controller, table);
+			DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog = new DeleteByLNameAndWorkDialog(controller, table);
+			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog( controller,  table);
 			Pane tablePane = table.getTable();
 
 			ActionButtons actionButtons = new ActionButtons(addDialog, searchByLNameAndGNumDialog,
-					searchByLNameAndWorkDialog, searchByGNumAndWorkDialog, deleteByLNameAndGNumDialog, deleteByLNameAndWorkDialog, deleteByGNumAndWorkDialog);
+					searchByLNameAndWorkDialog, searchByGNumAndWorkDialog, deleteByLNameAndGNumDialog,
+					deleteByLNameAndWorkDialog, deleteByGNumAndWorkDialog);
 			VBox actionButtonsPane = actionButtons.getActionButtons();
 
 			AnchorPane.setTopAnchor(actionButtonsPane, 100.0);
@@ -53,7 +52,6 @@ public class Main extends Application {
 			AnchorPane.setRightAnchor(tablePane, 15.0);
 			AnchorPane.setBottomAnchor(tablePane, 30.0);
 
-			
 			VBox tableControlPane = table.getTableControlPane();
 
 			AnchorPane.setTopAnchor(tableControlPane, 450.0);
@@ -61,9 +59,10 @@ public class Main extends Application {
 			AnchorPane.setBottomAnchor(tableControlPane, 20.0);
 
 			NavigationBar menuPanel = new NavigationBar(controller, table, addDialog, searchByLNameAndGNumDialog,
-					searchByLNameAndWorkDialog, searchByGNumAndWorkDialog, deleteByLNameAndGNumDialog, deleteByLNameAndWorkDialog, deleteByGNumAndWorkDialog);
+					searchByLNameAndWorkDialog, searchByGNumAndWorkDialog, deleteByLNameAndGNumDialog,
+					deleteByLNameAndWorkDialog, deleteByGNumAndWorkDialog);
 			Pane menuBarPane = menuPanel.getMenuPanel();
-			
+
 //			Table table = Table(model.getStudents());
 
 			AnchorPane root = new AnchorPane(menuBarPane, actionButtonsPane, tablePane, tableControlPane);
