@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 public class AddDialog {
 	Controller controller;
 
-	private List<Student> students;
-	private String lastElement;
-
 	private String firstName;
 
 	private String lastName;
@@ -96,8 +93,6 @@ public class AddDialog {
 
 			Student student = new Student(firstName, lastName, patronymic, groupNum, semWork);
 			students.add(student);
-
-		//	controller.rewriteStudentsList(students);
 
 			table.updateStudentsList(students);
 

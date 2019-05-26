@@ -4,8 +4,9 @@ import java.util.List;
 
 public class Student {
 
-	private String firstName, lastName, patronymic;
-
+	private String firstName;
+	private String lastName;
+	private String patronymic;
 	private List<String> semesterWork;
 
 	private String groupNumber;

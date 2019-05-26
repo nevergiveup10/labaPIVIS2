@@ -16,39 +16,30 @@ import javafx.stage.Stage;
 
 public class SearchByLNameAndWorkDialog {
 	private Stage stage = new Stage();
-
+	InterfaceBuilder interfaceBuilder = new InterfaceBuilder();
 	Table table = new Table();
-	Label lastNameLabel = new Label("Фамилия: ");
-	Label workLowLimitLabel = new Label("Кол-во работы (нижний предел): ");
-	Label workHighLimitLabel = new Label("Кол-во работы (верхний предел): ");
-	TextField lastNameInsert = new TextField();
-	TextField workLowLimitInsert = new TextField();
-	TextField workHighLimitInsert = new TextField();
-	Button search = new Button("Поиск");
-	Button cancel = new Button("Отмена");
-	Button erase = new Button("Очистить");
-	VBox controlBox = new VBox(10, lastNameLabel, lastNameInsert, workLowLimitLabel, workLowLimitInsert,
-			workHighLimitLabel, workHighLimitInsert, search, cancel, erase);
+	Label lastNameLabel = interfaceBuilder.lastNameLabel;
+	Label workLowLimitLabel = interfaceBuilder.workLowLimitLabel;
+	Label workHighLimitLabel = interfaceBuilder.workHighLimitLabel;
+	TextField lastNameInsert = interfaceBuilder.lastNameInsert;
+	TextField workLowLimitInsert = interfaceBuilder.workLowLimitInsert;
+	TextField workHighLimitInsert = interfaceBuilder.workHighLimitInsert;
+	Button search = interfaceBuilder.search;
+	Button cancel = interfaceBuilder.cancel;
+	Button erase = interfaceBuilder.erase;
+	VBox controlBox = new VBox(interfaceBuilder.SearchByLNameAndWorkControlBox());
 	Pane tablePane = table.getTable();
-	VBox tableControlPane = table.getTableControlPane();
-	AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane, tableControlPane);
+	AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane);
 	private Scene scene = new Scene(SearchByLNameAndGNumPane, 1400, 700);
-
-	private Controller controller;
 
 	public SearchByLNameAndWorkDialog(Controller controller) {
 		List<Student> searchResults = new ArrayList<>();
-		this.controller = controller;
 		List<Student> students = controller.getStudentsList();
 		stage.setTitle("Поиск по фамилии и колличеству общественной работы.");
 		stage.setScene(scene);
 		AnchorPane.setTopAnchor(controlBox, 20.0);
 		AnchorPane.setLeftAnchor(controlBox, 10.0);
 		AnchorPane.setTopAnchor(controlBox, 20.0);
-
-		AnchorPane.setTopAnchor(tableControlPane, 450.0);
-		AnchorPane.setRightAnchor(tableControlPane, 800.0);
-		AnchorPane.setBottomAnchor(tableControlPane, 20.0);
 
 		AnchorPane.setTopAnchor(tablePane, 30.0);
 		AnchorPane.setRightAnchor(tablePane, 15.0);

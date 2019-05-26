@@ -16,40 +16,32 @@ import javafx.stage.Stage;
 
 public class SearchByGNumAndWorkDialog {
 	private Stage stage = new Stage();
-
+	InterfaceBuilder interfaceBuilder = new InterfaceBuilder();
 	Table table = new Table();
 
-	Label groupNumLabel = new Label("Номер группы: ");
-	Label workLowLimitLabel = new Label("Кол-во работы (нижний предел): ");
-	Label workHighLimitLabel = new Label("Кол-во работы (верхний предел): ");
-	TextField groupNumInsert = new TextField();
-	TextField workLowLimitInsert = new TextField();
-	TextField workHighLimitInsert = new TextField();
-	Button search = new Button("Поиск");
-	Button cancel = new Button("Отмена");
-	Button erase = new Button("Очистить");
-	VBox controlBox = new VBox(10, groupNumLabel, groupNumInsert, workLowLimitLabel, workLowLimitInsert,
-			workHighLimitLabel, workHighLimitInsert, search, cancel, erase);
-	Pane tablePane = table.getTable();
-	VBox tableControlPane = table.getTableControlPane();
-	AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane, tableControlPane);
-	private Scene scene = new Scene(SearchByLNameAndGNumPane, 1400, 700);
+	Label groupNumLabel = interfaceBuilder.groupNumLabel;
+	Label workLowLimitLabel = interfaceBuilder.workLowLimitLabel;
+	Label workHighLimitLabel = interfaceBuilder.workHighLimitLabel;
+	TextField groupNumInsert = interfaceBuilder.groupNumInsert;
+	TextField workLowLimitInsert = interfaceBuilder.workLowLimitInsert;
+	TextField workHighLimitInsert = interfaceBuilder.workHighLimitInsert;
+	Button search = interfaceBuilder.search;
+	Button cancel = interfaceBuilder.cancel;
+	Button erase = interfaceBuilder.erase;
 
-	private Controller controller;
+	VBox controlBox = new VBox(interfaceBuilder.SearchByGNumAndWorkControlBox());
+	Pane tablePane = table.getTable();
+	AnchorPane SearchByLNameAndGNumPane = new AnchorPane(controlBox, tablePane);
+	private Scene scene = new Scene(SearchByLNameAndGNumPane, 1400, 700);
 
 	public SearchByGNumAndWorkDialog(Controller controller) {
 		List<Student> searchResults = new ArrayList<>();
-		this.controller = controller;
 		List<Student> students = controller.getStudentsList();
 		stage.setTitle("Поиск по номеру группы и колличеству общественной работы.");
 		stage.setScene(scene);
 		AnchorPane.setTopAnchor(controlBox, 20.0);
 		AnchorPane.setLeftAnchor(controlBox, 10.0);
 		AnchorPane.setTopAnchor(controlBox, 20.0);
-
-		AnchorPane.setTopAnchor(tableControlPane, 450.0);
-		AnchorPane.setRightAnchor(tableControlPane, 800.0);
-		AnchorPane.setBottomAnchor(tableControlPane, 20.0);
 
 		AnchorPane.setTopAnchor(tablePane, 30.0);
 		AnchorPane.setRightAnchor(tablePane, 15.0);

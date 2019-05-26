@@ -8,16 +8,6 @@ import javafx.collections.ObservableList;
 
 public class TablePageManager {
 	private List<List<Student>> pages = new ArrayList<>();
-	private int currentPage;
-	private int recordsOnPage;
-	private List<Student> students;
-
-	/*
-	 * public TablePageManager(List<Student> students) { for (int i = 0; i <
-	 * students.size(); i += 10) { pages.add(students.subList(i,
-	 * Math.min(students.size(), i + 10))); } this.students = students;
-	 * this.currentPage = 0; }
-	 */
 
 	public ObservableList<Student> getPage(int index) {
 		ObservableList<Student> page = FXCollections.observableArrayList(pages.get(index));
@@ -40,7 +30,5 @@ public class TablePageManager {
 		for (int i = 0; i < students.size(); i += 10) {
 			pages.add(students.subList(i, Math.min(students.size(), i + 10)));
 		}
-		this.students = students;
-		// this.currentPage = 0;
 	}
 }

@@ -1,24 +1,9 @@
 package application;
 
-import java.util.List;
-
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -36,7 +21,7 @@ public class Main extends Application {
 			SearchByGNumAndWorkDialog searchByGNumAndWorkDialog = new SearchByGNumAndWorkDialog(controller);
 			DeleteByLNameAndGNumDialog deleteByLNameAndGNumDialog = new DeleteByLNameAndGNumDialog(controller, table);
 			DeleteByLNameAndWorkDialog deleteByLNameAndWorkDialog = new DeleteByLNameAndWorkDialog(controller, table);
-			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog( controller,  table);
+			DeleteByGNumAndWorkDialog deleteByGNumAndWorkDialog = new DeleteByGNumAndWorkDialog(controller, table);
 			Pane tablePane = table.getTable();
 
 			ActionButtons actionButtons = new ActionButtons(addDialog, searchByLNameAndGNumDialog,
@@ -52,20 +37,12 @@ public class Main extends Application {
 			AnchorPane.setRightAnchor(tablePane, 15.0);
 			AnchorPane.setBottomAnchor(tablePane, 30.0);
 
-			VBox tableControlPane = table.getTableControlPane();
-
-			AnchorPane.setTopAnchor(tableControlPane, 450.0);
-			AnchorPane.setRightAnchor(tableControlPane, 680.0);
-			AnchorPane.setBottomAnchor(tableControlPane, 20.0);
-
 			NavigationBar menuPanel = new NavigationBar(controller, table, addDialog, searchByLNameAndGNumDialog,
 					searchByLNameAndWorkDialog, searchByGNumAndWorkDialog, deleteByLNameAndGNumDialog,
 					deleteByLNameAndWorkDialog, deleteByGNumAndWorkDialog);
 			Pane menuBarPane = menuPanel.getMenuPanel();
 
-//			Table table = Table(model.getStudents());
-
-			AnchorPane root = new AnchorPane(menuBarPane, actionButtonsPane, tablePane, tableControlPane);
+			AnchorPane root = new AnchorPane(menuBarPane, actionButtonsPane, tablePane);
 			Scene scene = new Scene(root, 1400, 700);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

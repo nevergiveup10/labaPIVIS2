@@ -19,7 +19,6 @@ import javafx.scene.layout.VBox;
 public class Table {
 	private int currentPage;
 	private int recordsOnPage;
-	private List<Student> students;
 	TablePageManager tablePageManager = new TablePageManager();
 	TableView<Student> table = new TableView();
 	TableColumn<Student, String> firstName = new TableColumn<>("Имя");
@@ -37,8 +36,7 @@ public class Table {
 	TableColumn<Student, String> sem8 = new TableColumn<>("8 сем.");
 	TableColumn<Student, String> sem9 = new TableColumn<>("9 сем.");
 	TableColumn<Student, String> sem10 = new TableColumn<>("10 сем.");
-	Pane paneForTable = new Pane(table);
-
+	
 	Button firstPageButton = new Button("Первая стр.  ");
 	Button previousPageButton = new Button("<");
 	Button nextPageButton = new Button(">");
@@ -64,7 +62,7 @@ public class Table {
 
 	VBox tableControlPane = new VBox(10, tableControlButtons, allRecordsBox, allPagesBox, currentPageBox,
 			recordsNumBox);
-
+	VBox paneForTable = new VBox(20, table, tableControlPane);
 	public Table() {
 		this(new ArrayList<>());
 	}
@@ -96,7 +94,6 @@ public class Table {
 	}
 
 	private void tableControl(List<Student> students) {
-		// TablePageManager tablePageManager = new TablePageManager(students);
 
 		tablePageManager.update(students);
 		table.setItems(tablePageManager.getPage(0));
@@ -171,12 +168,8 @@ public class Table {
 	}
 
 	public void updateStudentsList(List<Student> students) {
-		this.students = students;
 		tableControl(students);
 		allRecordsValue.setText(Integer.toString(students.size()));
 	}
 
-	public VBox getTableControlPane() {
-		return tableControlPane;
-	}
 }

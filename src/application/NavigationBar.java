@@ -13,7 +13,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class NavigationBar {
-	private Controller controller;
 	private MenuItem newFile = new MenuItem("Новый файл");
 	private MenuItem openFile = new MenuItem("Открыть файл");
 	private MenuItem saveFile = new MenuItem("Сохранить файл");
@@ -53,8 +52,6 @@ public class NavigationBar {
 		menuDel.getItems().add(del1);
 		menuDel.getItems().add(del2);
 		menuDel.getItems().add(del3);
-		this.controller = controller;
-
 		openFile.setOnAction((e) -> {
 			FileChooser fileChooser = new FileChooserBuilder().getFileChooser();
 			File selectedFile = fileChooser.showOpenDialog(stage);
@@ -76,10 +73,7 @@ public class NavigationBar {
 		});
 
 		newFile.setOnAction((e) -> {
-			List<Student> students = controller.getStudentsList();
 			controller.eraseStudentsList();
-			// table.updateStudentsList(students);
-
 			table.resetTable();
 		});
 
@@ -89,7 +83,7 @@ public class NavigationBar {
 				addDialog.show();
 			}
 		});
-		
+
 		search1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -103,28 +97,28 @@ public class NavigationBar {
 				searchByLNameAndWorkDialog.show();
 			}
 		});
-		
+
 		search3.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				searchByGNumAndWorkDialog.show();
 			}
 		});
-		
+
 		del1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				deleteByLNameAndGNumDialog.show();
 			}
 		});
-		
+
 		del2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				deleteByLNameAndWorkDialog.show();
 			}
 		});
-		
+
 		del3.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

@@ -15,51 +15,47 @@ import javafx.stage.Stage;
 
 public class DeleteByLNameAndWorkDialog {
 	private Stage stage = new Stage();
-	Label lastNameLabel = new Label("Фамилия: ");
-	Label workLowLimitLabel = new Label("Кол-во работы (нижний предел): ");
-	Label workHighLimitLabel = new Label("Кол-во работы (верхний предел): ");
-	TextField lastNameInsert = new TextField();
-	TextField workLowLimitInsert = new TextField();
-	TextField workHighLimitInsert = new TextField();
-	Button delete = new Button("Удалить");
-	Button cancel = new Button("Отмена");
-	VBox controlBox = new VBox(10, lastNameLabel, lastNameInsert, workLowLimitLabel, workLowLimitInsert,
-			workHighLimitLabel, workHighLimitInsert, delete, cancel);
+	InterfaceBuilder interfaceBuilder = new InterfaceBuilder();
+	Label lastNameLabel = interfaceBuilder.lastNameLabel;
+	Label workLowLimitLabel = interfaceBuilder.workLowLimitLabel;
+	Label workHighLimitLabel = interfaceBuilder.workHighLimitLabel;
+	TextField lastNameInsert = interfaceBuilder.lastNameInsert;
+	TextField workLowLimitInsert = interfaceBuilder.workLowLimitInsert;
+	TextField workHighLimitInsert = interfaceBuilder.workHighLimitInsert;
+	Button delete = interfaceBuilder.delete;
+	Button cancel = interfaceBuilder.cancel;
+	VBox controlBox = new VBox(interfaceBuilder.DeleteByLNameAndWorkControlBox());
 	private Scene scene = new Scene(controlBox, 500, 300);
-	private Controller controller;
 
 	public DeleteByLNameAndWorkDialog(Controller controller, Table table) {
-		this.controller = controller;
 		List<Student> students = controller.getStudentsList();
 		stage.setTitle("Удаление по фамилии и кол-ву работы.");
 		stage.setScene(scene);
-		
+
 		delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 
 				for (int i = 0; i < students.size(); i++) {
-						for (int j = 0; j < students.get(i).getSemesterWork().size(); j++) {
-							if (Integer.parseInt(students.get(i).getSemesterWork().get(j)) >= Integer
-									.parseInt(workLowLimitInsert.getText())
-									&& Integer.parseInt(students.get(i).getSemesterWork().get(j)) <= Integer
-											.parseInt(workHighLimitInsert.getText())) {
-								if (lastNameInsert.getText().equals(students.get(i).getLastName())) {
-								
-									students.remove(i);
-							
-								}
-								
+					for (int j = 0; j < students.get(i).getSemesterWork().size(); j++) {
+						if (Integer.parseInt(students.get(i).getSemesterWork().get(j)) >= Integer
+								.parseInt(workLowLimitInsert.getText())
+								&& Integer.parseInt(students.get(i).getSemesterWork().get(j)) <= Integer
+										.parseInt(workHighLimitInsert.getText())) {
+							if (lastNameInsert.getText().equals(students.get(i).getLastName())) {
+
+								students.remove(i);
 
 							}
 
 						}
+
+					}
 				}
 
-				
-					table.updateStudentsList(students);
-				}
-			
+				table.updateStudentsList(students);
+				stage.close();
+			}
 
 		});
 
@@ -68,11 +64,9 @@ public class DeleteByLNameAndWorkDialog {
 			public void handle(ActionEvent event) {
 				stage.close();
 			}
-		
+
 		});
 
-
-		
 	}
 
 	public void show() {

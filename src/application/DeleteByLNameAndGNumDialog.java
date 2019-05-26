@@ -12,20 +12,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class DeleteByLNameAndGNumDialog {
-	
+
 	private Stage stage = new Stage();
-	Label lastNameLabel = new Label("Фамилия: ");
-	Label groupNumLabel = new Label("Номер группы: ");
-	TextField lastNameInsert = new TextField();
-	TextField groupNumInsert = new TextField();
-	Button delete = new Button("Удалить");
-	Button cancel = new Button("Отмена");
-	VBox controlBox = new VBox(10, lastNameLabel, lastNameInsert, groupNumLabel, groupNumInsert, delete, cancel);
+	InterfaceBuilder interfaceBuilder = new InterfaceBuilder();
+	Label lastNameLabel = interfaceBuilder.lastNameLabel;
+	Label groupNumLabel = interfaceBuilder.groupNumLabel;
+	TextField lastNameInsert = interfaceBuilder.lastNameInsert;
+	TextField groupNumInsert = interfaceBuilder.groupNumInsert;
+	Button delete = interfaceBuilder.delete;
+	Button cancel = interfaceBuilder.cancel;
+	VBox controlBox = new VBox(interfaceBuilder.DeleteByLNameAndGNumControlBox());
 	private Scene scene = new Scene(controlBox, 500, 250);
-	private Controller controller;
 
 	public DeleteByLNameAndGNumDialog(Controller controller, Table table) {
-		this.controller = controller;
 		List<Student> students = controller.getStudentsList();
 		stage.setTitle("Удаление по фамилии или номеру группы.");
 		stage.setScene(scene);
@@ -33,40 +32,39 @@ public class DeleteByLNameAndGNumDialog {
 		delete.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-			if (!lastNameInsert.getText().isEmpty()) {
-				for (int i = 0; i<students.size(); i++) {
-				if(students.get(i).getLastName().equals(lastNameInsert.getText())) {
-					students.remove(i);
-				}
-				}
-			}
-			if (!groupNumLabel.getText().isEmpty())
-				for (int i = 0; i<students.size(); i++) {
-					if(students.get(i).getGroupNumber().equals(groupNumInsert.getText())) {
-						students.remove(i);
-				}
-			}
-			
-			
-			if (!groupNumLabel.getText().isEmpty() && !lastNameInsert.getText().isEmpty()) {
-				for (int i = 0; i<students.size(); i++) {
-					if(students.get(i).getGroupNumber().equals(groupNumInsert.getText())) {
-						students.remove(i);				
+
+				if (!lastNameInsert.getText().isEmpty()) {
+					for (int i = 0; i < students.size(); i++) {
+						if (students.get(i).getLastName().equals(lastNameInsert.getText())) {
+							students.remove(i);
+						}
 					}
-					if(students.get(i).getLastName().equals(lastNameInsert.getText())) {
-						students.remove(i);
-			}
-			
 				}
-			
+				if (!groupNumLabel.getText().isEmpty())
+					for (int i = 0; i < students.size(); i++) {
+						if (students.get(i).getGroupNumber().equals(groupNumInsert.getText())) {
+							students.remove(i);
+						}
+					}
+
+				if (!groupNumLabel.getText().isEmpty() && !lastNameInsert.getText().isEmpty()) {
+					for (int i = 0; i < students.size(); i++) {
+						if (students.get(i).getGroupNumber().equals(groupNumInsert.getText())) {
+							students.remove(i);
+						}
+						if (students.get(i).getLastName().equals(lastNameInsert.getText())) {
+							students.remove(i);
+						}
+
+					}
+
+				}
+				table.updateStudentsList(students);
+				stage.close();
 			}
-			table.updateStudentsList(students);
-			stage.close();
-			}
-			
+
 		});
-		
+
 		cancel.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

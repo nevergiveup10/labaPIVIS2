@@ -36,8 +36,6 @@ public class XMLHandler extends DefaultHandler {
 
 	private int num;
 
-	private Controller controller;
-
 	public XMLHandler() {
 		students = new LinkedList<>();
 	}
